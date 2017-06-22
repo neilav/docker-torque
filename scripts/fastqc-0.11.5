@@ -1,0 +1,19 @@
+#%Module1.0#####################################################################
+##
+## modules apps/fastqc-0.11.5
+##
+## modulefiles/apps/fastqc-0.11.5
+##
+proc ModulesHelp { } {
+        global version modroot
+
+        puts stderr "apps/fastqc-0.11.5 - sets the Environment for fastqc in my home directory"
+}
+
+module-whatis   "Sets the environment for using fastqc"
+
+# for Tcl script use only
+set     topdir          /usr/local/FastQC
+set     version         0.11.5
+
+prepend-path    PATH    $topdir/
