@@ -1,18 +1,16 @@
-FROM debian
+FROM ubuntu
 MAINTAINER Neil Venables <neil.venables@cruk.manchester.ac.uk>
 
-RUN apt-get update && \
-    apt-get install -y && \
-    apt-get install build-essential -y && \
-    apt-get install git -y && \
-    apt-get install libtool m4 automake pkg-config libssl-dev libxml2-dev libboost-dev python-drmaa gperf -y && \
-    git clone https://github.com/adaptivecomputing/torque.git -b 6.0.2 /usr/local/6.0.2
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install build-essential -y
+RUN apt-get install git -y
+RUN apt-get install libtool m4 automake pkg-config libssl-dev libxml2-dev zlib1g-dev libboost-dev pbs-drmaa-dev gperf -y
 
-WORKDIR /usr/local/6.0.2
-
-RUN ./autogen.sh && \
-    ./configure --enable-drmaa && \
-    make && \
+RUN git clone https://github.com/adaptivecomputing/torque.git -b 6.1.1 /usr/local/6.1.1
+WORKDIR /usr/local/6.1.1
+RUN ./autogen.sh &&\
+    ./configure --enable-drmaa &&\
+    make &&\
     make install
 
 ENV HOSTNAME master
@@ -52,8 +50,6 @@ RUN apt-get install python3 python3-pip -y
 RUN echo "source /etc/profile.d/modules.sh" >> /root/.bashrc
 RUN echo "alias python='/usr/bin/python3'" >> /root/.bashrc
 RUN echo "alias pip='/usr/bin/pip3'" >> /root/.bashrc
-
-
 
 WORKDIR /
 ENTRYPOINT /startenv.sh && /bin/bash
