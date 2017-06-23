@@ -1,10 +1,12 @@
 FROM ubuntu
 MAINTAINER Neil Venables <neil.venables@cruk.manchester.ac.uk>
 
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install build-essential -y
-RUN apt-get install git -y
-RUN apt-get install libtool m4 automake pkg-config libssl-dev libxml2-dev zlib1g-dev libboost-dev pbs-drmaa-dev gperf -y
+RUN apt-get update &&\
+            apt-get update -y &&\
+            apt-get install build-essential -y &&\
+            apt-get install git -y &&\
+            apt-get install libtool m4 automake pkg-config -y &&\
+            apt-get install libssl-dev libxml2-dev zlib1g-dev libboost-dev pbs-drmaa-dev gperf -y
 
 RUN git clone https://github.com/adaptivecomputing/torque.git -b 6.1.1 /usr/local/6.1.1
 WORKDIR /usr/local/6.1.1
