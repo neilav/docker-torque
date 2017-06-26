@@ -48,6 +48,10 @@ RUN chmod 755 FastQC/fastqc
 RUN mkdir -p /usr/share/modules/modulefiles/apps/
 COPY ./scripts/fastqc-0.11.5 /usr/share/modules/modulefiles/apps/
 
+# Tidy old files. 
+RUN rm -rf fastqc_v0.11.5.zip
+RUN rm -rf 6.1.1
+
 RUN apt-get install python3 python3-pip -y
 RUN echo "source /etc/profile.d/modules.sh" >> /root/.bashrc
 RUN echo "alias python='/usr/bin/python3'" >> /root/.bashrc
