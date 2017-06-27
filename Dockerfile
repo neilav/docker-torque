@@ -48,14 +48,20 @@ RUN chmod 755 FastQC/fastqc
 RUN mkdir -p /usr/share/modules/modulefiles/apps/
 COPY ./scripts/fastqc-0.11.5 /usr/share/modules/modulefiles/apps/
 
-# Tidy old files. 
+# Tidy old files.
 RUN rm -rf fastqc_v0.11.5.zip
 RUN rm -rf 6.1.1
 
-RUN apt-get install python3 python3-pip -y
+RUN apt-get install python3 python3-pip python3-venv -y
 RUN echo "source /etc/profile.d/modules.sh" >> /root/.bashrc
 RUN echo "alias python='/usr/bin/python3'" >> /root/.bashrc
 RUN echo "alias pip='/usr/bin/pip3'" >> /root/.bashrc
+
+RUN apt-get install libyaml-dev locales r-base-dev libffi-dev -y
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+RUN locale-gen
+RUN echo 'export LC_ALL=en_US.UTF-8' >> /root/.bashrc
+RUN echo 'export LANG=en_US.UTF-8' >> /root/.bashrc
 
 WORKDIR /
 ENTRYPOINT /startenv.sh && /bin/bash
