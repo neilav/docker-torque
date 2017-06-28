@@ -56,6 +56,7 @@ RUN apt-get install python3 python3-pip python3-venv -y
 RUN echo "source /etc/profile.d/modules.sh" >> /root/.bashrc
 RUN echo "alias python='/usr/bin/python3'" >> /root/.bashrc
 RUN echo "alias pip='/usr/bin/pip3'" >> /root/.bashrc
+RUN echo "alias qsub='qsub -P batchuser'" >> /root/.bashrc
 
 RUN apt-get install libyaml-dev locales r-base-dev libffi-dev -y
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
